@@ -36,8 +36,18 @@
   (apply str
          (map decode-char (cycle keyword) message)))
 
+(defn shortest-string
+  [string]
+  (let [string-seq (seq string)
+        lenght (count string-seq)]
+    (loop [n 1]
+      (let [shortest (take n string-seq)
+            shortest-repeated (take lenght (cycle shortest))]
+        (if (= string-seq shortest-repeated)
+          (apply str shortest)
+          (recur (inc n)))))))
 
 (defn decipher [cipher message]
-  "decypherme")
+  (shortest-string (decode message cipher)))
 
 
