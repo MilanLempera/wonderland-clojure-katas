@@ -17,13 +17,25 @@
          (drop offset)
          first)))
 
+(defn decode-char
+  [key char]
+  (let [key-position (char->position key)
+        char-position (char->position char)
+        offset (- char-position key-position)]
+    (->> alphabet
+         cycle
+         (drop (+ 26 offset))
+         first)))
+
 (defn encode [keyword message]
   (apply str
          (map encode-char (cycle keyword) message)))
 
 
 (defn decode [keyword message]
-  "decodeme")
+  (apply str
+         (map decode-char (cycle keyword) message)))
+
 
 (defn decipher [cipher message]
   "decypherme")
