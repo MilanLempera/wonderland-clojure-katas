@@ -13,8 +13,7 @@
         char-position (char->position char)
         offset (+ key-position char-position)]
     (->> alphabet
-         cycle
-         (drop offset)
+         (drop (mod offset 26))
          first)))
 
 (defn decode-char
@@ -23,8 +22,7 @@
         char-position (char->position char)
         offset (- char-position key-position)]
     (->> alphabet
-         cycle
-         (drop (+ 26 offset))
+         (drop (mod offset 26))
          first)))
 
 (defn encode [keyword message]
